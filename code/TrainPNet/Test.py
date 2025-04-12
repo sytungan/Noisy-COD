@@ -13,7 +13,7 @@ parser = argparse.ArgumentParser()
 parser.add_argument('--testsize', type=int, default=384, help='testing size')  #
 parser.add_argument('--ration', type=int, default=20, help='ration')
 parser.add_argument('--pth_path', type=str, default='../weight/PNet/')  # this
-parser.add_argument('--test_dataset_path', type=str, default='../data/')
+parser.add_argument('--test_dataset_path', type=str, default='../code/data/1%/')  # Updated path
 parser.add_argument('--save_path', type=str, default="../results/")
 opt = parser.parse_args()
 opt.pth_path = opt.pth_path + str(opt.ration) + "%/Net_epoch_best.pth"
@@ -27,7 +27,7 @@ with torch.no_grad():
         os.makedirs(save_path, exist_ok=True)
 
         model = Network()
-        weights = torch.load(opt.pth_path)
+        weights = torch.load(opt.pth_path, map_location=torch.device('cpu'))
 
         weights_dict = {}
         for k, v in weights.items():
@@ -35,7 +35,6 @@ with torch.no_grad():
             weights_dict[new_k] = v
 
         model.load_state_dict(weights_dict)
-        model.cuda()
         model.eval()
 
         image_root = '{}/image/'.format(data_path)

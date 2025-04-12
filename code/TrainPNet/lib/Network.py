@@ -2,13 +2,14 @@ import torch.nn as nn
 import torch
 import torch.nn.functional as F
 from .pvtv2 import pvt_v2_b4
+import os
 
 
 class Network(nn.Module):
     def __init__(self, channels=64):
         super(Network, self).__init__()
         self.shared_encoder = pvt_v2_b4()
-        self.shared_encoder.load_state_dict(torch.load('/mnt/jixie16t/dataset/imagenet_pretrained_weight/PVTv2/pvt_v2_b4.pth'))
+        self.shared_encoder.load_state_dict(torch.load('/Users/minhtri/project/Noisy-COD/code/weight/PNet/pvt_v2_b4.pth'))
         self.GCM3 = GCM3([64, 128, 320, 512], channels)
 
         self.LL_down3 = nn.Sequential(

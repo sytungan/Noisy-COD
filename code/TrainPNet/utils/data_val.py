@@ -29,7 +29,7 @@ aug = A.Compose([
     A.ColorJitter(0.5, 0.5, 0.5, 0.5),
     A.HorizontalFlip(p=0.5),
     A.VerticalFlip(p=0.5),
-    A.Flip(p=0.5),
+    A.RandomRotate90(p=0.5),
     A.Transpose(p=0.5),
     A.GaussNoise(p=0.2),
     A.Blur(p=0.2),
@@ -48,8 +48,8 @@ class PolypObjDataset(data.Dataset):
         self.trainsize = trainsize
         self.istraining = istraining
         
-        self.images = [image_root + f for f in os.listdir(image_root) if f.endswith('.jpg')] 
-        self.gts = [i.replace("image", "mask").replace(".jpg", ".png") for i in self.images] 
+        self.images = [image_root + f for f in os.listdir(image_root) if f.endswith(('.jpg', '.png'))] 
+        self.gts = [i.replace("image", "mask").replace(".jpg", ".png").replace(".png", ".png") for i in self.images] 
         self.edges = [i.replace("mask", "edge") for i in self.gts] 
 
         if 'CAMO_COD_train' in image_root:
