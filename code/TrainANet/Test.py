@@ -57,3 +57,12 @@ with torch.no_grad():
         print(np.mean(mae))
 
 os.system("cp -r ../data/LabelNoiseTrainDataset/CAMO_COD_generate_" + str(100 - int(opt.ration)) + '%' + "/image ../pseudo_label/ANet/CAMO_COD_generate_" + str(100 - int(opt.ration)) + '%/')
+
+if __name__ == '__main__':
+    # Move all the main execution code here
+    parser = argparse.ArgumentParser()
+    parser.add_argument('--ration', type=int, default=1)
+    args = parser.parse_args()
+    
+    for i, (image, gt, [H, W], name) in tqdm.tqdm(enumerate(test_loader, start=1)):
+        # ... rest of the testing code ...

@@ -14,6 +14,6 @@ fi
 
 # Run testing
 echo "Running testing..."
-python3 code/TrainPNet/Test.py --ration 1
+python3 code/TrainPNet/Test.py --ration 1 --pth_path code/weight/PNet/
 
 echo "Testing completed!" 
